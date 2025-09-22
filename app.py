@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template_string
+from flask import Flask, request
 import sqlite3
 
 app = Flask(__name__)
@@ -103,6 +103,5 @@ def login():
 def index():
     return "<h3>🔐 <a href='/login'>Кіру</a> | <a href='/register'>Тіркелу</a></h3>"
 
-if __name__ == "__main__":
-    init_db()
-    app.run(debug=True)
+# 🟢 Қосымша импортталғанда да база құрылсын
+init_db()
