@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+  <meta charset="UTF-8">
+  <title>Жүйеге кіру</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 400px;
+      margin: 50px auto;
+    }
+    label {
+      font-weight: bold;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+    }
+    .button-row {
+      display: flex;
+      justify-content: space-between;
+    }
+    .button-row button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      background-color: #4CAF50;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .footer-links {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 14px;
+    }
+    .footer-links a {
+      color: blue;
+      text-decoration: none;
+      margin: 0 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Жүйеге кіру</h2>
+
+  <form id="loginForm" method="POST" action="/login">
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email" required><br>
+
+    <label for="passwordInput">Құпия сөз:</label><br>
+    <input type="password" id="passwordInput" required><br>
+
+    <input type="hidden" name="password" id="hashedPassword">
+
+    <div class="button-row">
+      <button type="submit">Кіру</button>
+    </div>
+  </form>
+
+  <div class="footer-links">
+    Тіркелу: <a href="/register">/register</a> |
+    Кіру: <a href="/login">/login</a>
+  </div>
+
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const passwordInput = document.getElementById("passwordInput");
+      const hashed = sha256(passwordInput.value);
+      document.getElementById("hashedPassword").value = hashed;
+      passwordInput.value = "";
+      this.submit();
+    });
+  </script>
+
+</body>
+</html>
